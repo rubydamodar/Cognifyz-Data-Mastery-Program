@@ -1,6 +1,3 @@
-# 📁 Project Structure
-
-This `README.md` provides an organized overview of the project files and directories for easy navigation.
 
 ```
 📦 Data Science Internship Project
