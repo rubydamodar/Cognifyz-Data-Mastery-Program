@@ -317,6 +317,3 @@ print("Top 10 cities with the highest number of restaurants:")
 print(DATASET['City'].value_counts().head(10))
 ```
 
-## 💡 Conclusion
-
-This project provides insights into the **restaurant industry** by examining numerical and categorical data. From understanding basic statistics to identifying the most popular cuisines and cities, the analysis highlights trends that are crucial for stakeholders in the restaurant business. By visualizing these insights, the project offers a clear and engaging overview of restaurant data. 🌟
