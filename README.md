@@ -697,4 +697,143 @@ plt.show()
 - The dataset is categorized into price ranges, and the percentage of restaurants offering online delivery is calculated for each category.
 - A stacked bar chart visualizes the distribution of online delivery services across different price ranges.
 
----
+
+# **Feature Engineering for Restaurant Dataset 🍽️**
+
+## **Introduction 🎯**
+
+Feature Engineering is a crucial step in enhancing the predictive power of machine learning models. It involves creating new features or modifying existing ones to better represent the underlying patterns in the data. This process helps improve model performance by providing additional useful information derived from raw data. 📊
+
+In this analysis, we explore how feature engineering can be applied to a restaurant dataset by creating new features and encoding categorical variables for easier model interpretation. 🔍
+
+## **Dataset Overview 📋**
+
+The dataset used in this analysis contains restaurant information, including details such as:
+
+- **Restaurant Name 🏢**
+- **Address 📍**
+- **Has Table Booking 📅**
+- **Has Online Delivery 🚗**
+- **Average Cost for Two 💸**
+- **Aggregate Rating ⭐**
+
+We will focus on transforming and encoding some key columns to generate new insights. 💡
+
+## **Feature Engineering Steps ⚙️**
+
+### 1. **Extracting Features: Length of Restaurant Name and Address 📝**
+
+We begin by creating new features that capture the length of the restaurant's name and the address. These features may provide insights into the level of detail in the restaurant's branding and location. 🏷️
+
+#### **Code:**
+```python
+# Create new features for the length of the restaurant name and address
+DATASET['Restaurant Name Length'] = DATASET['Restaurant Name'].apply(len)
+DATASET['Address Length'] = DATASET['Address'].apply(len)
+
+# Display the new columns for verification
+print("Sample data with new length features:")
+print(DATASET[['Restaurant Name', 'Restaurant Name Length', 'Address', 'Address Length']].head())
+```
+
+#### **Sample Data:**
+
+| Restaurant Name        | Restaurant Name Length | Address                                             | Address Length |
+|------------------------|------------------------|-----------------------------------------------------|----------------|
+| Le Petit Souffle       | 16                     | Third Floor, Century City Mall, Kalayaan Avenue...  | 71             |
+| Izakaya Kikufuji       | 16                     | Little Tokyo, 2277 Chino Roces Avenue, Legaspi...   | 67             |
+| Heat - Edsa Shangri-La | 22                     | Edsa Shangri-La, 1 Garden Way, Ortigas, Mandaluyong | 56             |
+| Ooma                   | 4                      | Third Floor, Mega Fashion Hall, SM Megamall, Ortigas| 70             |
+| Sambo Kojin            | 11                     | Third Floor, Mega Atrium, SM Megamall, Ortigas...   | 64             |
+
+### 2. **Visualizing the Length Features 📊**
+
+We plot the distributions of restaurant name length and address length to understand their variations. 📈
+
+#### **Code:**
+```python
+# Plot distribution of 'Restaurant Name Length'
+plt.figure(figsize=(12, 6))
+sns.histplot(DATASET['Restaurant Name Length'], kde=True, color='GREEN')
+plt.title('Distribution of Restaurant Name Length')
+plt.xlabel('Length of Restaurant Name')
+plt.ylabel('Frequency')
+plt.show()
+
+# Plot distribution of 'Address Length'
+plt.figure(figsize=(12, 6))
+sns.histplot(DATASET['Address Length'], kde=True, color='orange')
+plt.title('Distribution of Address Length')
+plt.xlabel('Length of Address')
+plt.ylabel('Frequency')
+plt.show()
+```
+
+### 3. **Encoding Categorical Variables: Table Booking and Online Delivery 🧮**
+
+Next, we encode the categorical features "Has Table Booking" and "Has Online Delivery" into binary numerical values. This transformation helps to use these features in predictive models. 🔢
+
+#### **Code:**
+```python
+# Encoding 'Has Table booking' as a binary feature
+DATASET['Has Table Booking (Encoded)'] = DATASET['Has Table booking'].map({'Yes': 1, 'No': 0})
+
+# Encoding 'Has Online delivery' as a binary feature
+DATASET['Has Online Delivery (Encoded)'] = DATASET['Has Online delivery'].map({'Yes': 1, 'No': 0})
+print("Sample data with new encoded features:")
+print(DATASET[['Has Table booking', 'Has Table Booking (Encoded)', 'Has Online delivery', 'Has Online Delivery (Encoded)']].head())
+```
+
+#### **Sample Data:**
+
+| Has Table booking | Has Table Booking (Encoded) | Has Online delivery | Has Online Delivery (Encoded) |
+|-------------------|-----------------------------|---------------------|-------------------------------|
+| Yes               | 1                           | No                  | 0                             |
+| Yes               | 1                           | No                  | 0                             |
+| Yes               | 1                           | No                  | 0                             |
+| No                | 0                           | No                  | 0                             |
+| Yes               | 1                           | No                  | 0                             |
+
+### 4. **Visualizing the Encoded Features 📊**
+
+We visualize the distribution of the binary encoded features to understand the proportion of restaurants offering table booking and online delivery. 📅📦
+
+#### **Code:**
+```python
+# Visualize the proportion of restaurants with table booking
+plt.figure(figsize=(8, 5))
+sns.countplot(x='Has Table Booking (Encoded)', data=DATASET, palette='pastel')
+plt.title('Distribution of Restaurants with Table Booking')
+plt.xlabel('Has Table Booking (Encoded)')
+plt.ylabel('Count')
+plt.xticks([0, 1], ['No', 'Yes'])
+plt.show()
+
+# Visualize the proportion of restaurants with online delivery
+plt.figure(figsize=(8, 5))
+sns.countplot(x='Has Online Delivery (Encoded)', data=DATASET, palette='coolwarm')
+plt.title('Distribution of Restaurants with Online Delivery')
+plt.xlabel('Has Online Delivery (Encoded)')
+plt.ylabel('Count')
+plt.xticks([0, 1], ['No', 'Yes'])
+plt.show()
+```
+
+## **Summary of Feature Engineering 🔧**
+
+### **New Features Created:**
+1. **Restaurant Name Length 📝:** The number of characters in the restaurant's name.
+2. **Address Length 📍:** The number of characters in the restaurant's address.
+
+### **Categorical Features Encoded:**
+1. **Has Table Booking (Encoded) 📅:** Binary variable (1 for Yes, 0 for No) indicating whether a restaurant offers table booking.
+2. **Has Online Delivery (Encoded) 🚗:** Binary variable (1 for Yes, 0 for No) indicating whether a restaurant offers online delivery.
+
+### **Visual Insights:**
+- The distribution of the length of restaurant names and addresses shows variations in branding and location descriptions. 🌍
+- The encoded features reveal the proportion of restaurants offering table booking and online delivery services. 📅📦
+
+
+Feature engineering has provided us with insightful new features and encoded variables that can be used in predictive models. These transformations help capture meaningful patterns and relationships, making the data more suitable for machine learning algorithms. 💻
+
+By understanding and applying these techniques, you can significantly improve the performance of your models and gain deeper insights into the data. 🚀
