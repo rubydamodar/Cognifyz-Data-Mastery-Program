@@ -1293,3 +1293,41 @@ The following visualization showcases the relationship between the **number of v
 You can view the plot below, which visualizes the correlation between `Votes` and `Aggregate Rating` for each cuisine:
 
 ![Vites vs Aggregate Rating](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/Capture.PNG?raw=true)
+
+
+
+## 📊 **Data Visualization Gallery** 🚀
+
+### Here are various visualizations for better understanding of data:
+
+| ![Average Rating by Cuisine](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/average_rating_by_cuisine.png?raw=true) | ![Boxplot Ratings by Cuisine](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/boxplot_ratings_by_cuisine.png?raw=true) |
+| --- | --- |
+| **Average Rating by Cuisine** | **Boxplot Ratings by Cuisine** |
+
+| ![Correlation Heatmap](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/correlation_heatmap.png?raw=true) | ![Jointplot Votes vs Rating](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/jointplot_votes_rating.png?raw=true) |
+| --- | --- |
+| **Correlation Heatmap** | **Jointplot Votes vs Rating** |
+
+
+| ![Pair Plot](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/pair_plot.png?raw=true) | ![Pairplot Votes vs Rating](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/pairplot_votes_rating.png?raw=true) |
+| --- | --- |
+| **Pair Plot** | **Pairplot Votes vs Rating** |
+
+
+| ![Rating Distribution Boxplot](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/rating_distribution_boxplot.png?raw=true) | ![Rating Distribution Histogram](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/rating_distribution_histogram.png?raw=true) |
+| --- | --- |
+| **Rating Distribution Boxplot** | **Rating Distribution Histogram** |
+
+| ![Swarmplot Ratings by Cuisines](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/swarmplot_ratings_cuisines.png?raw=true) | ![Top Cuisines Average Rating](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/top_cuisines_avg_rating.png?raw=true) |
+| --- | --- |
+| **Swarmplot Ratings by Cuisines** | **Top Cuisines Average Rating** |
+
+
+| ![Violinplot Votes by Rating](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/violinplot_votes_by_rating.png?raw=true) | ![Votes vs Aggregate Rating](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/votes_vs_aggregate_rating.png?raw=true) |
+| --- | --- |
+| **Violinplot Votes by Rating** | **Votes vs Aggregate Rating** |
+
+| ![Votes vs Rating Scatter](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/votes_vs_rating_scatter.png?raw=true) |  |
+| --- | --- |
+| **Votes vs Rating Scatter** |  |
+
