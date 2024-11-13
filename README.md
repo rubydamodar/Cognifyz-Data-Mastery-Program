@@ -568,3 +568,133 @@ Through this **Price Range Analysis** for restaurants, we have learned the follo
 3. **Color Insights**: The color **Orange** 🌟 represents the highest average ratings for **Low** and **Medium** price ranges, while **Yellow** 🌟 is most common for **Very High** price ranges.
 
 This analysis can help us understand how price influences customer ratings and how restaurants are perceived across different price ranges. 🎯
+
+
+# Table Booking and Online Delivery Analysis
+
+**1. Percentage of Restaurants Offering Table Booking and Online Delivery**
+
+- **Percentage of Restaurants Offering Table Booking:**
+
+```python
+table_booking_percentage = (DATASET['Has Table booking'].value_counts(normalize=True) * 100).round(2)
+print("Percentage of restaurants with and without table booking:")
+print(table_booking_percentage)
+```
+
+**Output:**
+```
+Percentage of restaurants with and without table booking:
+Has Table booking
+No     87.88
+Yes    12.12
+Name: proportion, dtype: float64
+```
+
+- **Percentage of Restaurants Offering Online Delivery:**
+
+```python
+online_delivery_percentage = (DATASET['Has Online delivery'].value_counts(normalize=True) * 100).round(2)
+print("\nPercentage of restaurants with and without online delivery:")
+print(online_delivery_percentage)
+```
+
+**Output:**
+```
+Percentage of restaurants with and without online delivery:
+Has Online delivery
+No     74.34
+Yes    25.66
+Name: proportion, dtype: float64
+```
+
+**Plot for Distribution:**
+
+```python
+plt.figure(figsize=(8, 5))
+sns.countplot(x='Has Table booking', data=DATASET, palette='pastel')
+plt.title('Distribution of Restaurants with Table Booking')
+plt.xlabel('Table Booking Available')
+plt.ylabel('Number of Restaurants')
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+plt.show()
+
+sns.countplot(x='Has Online delivery', data=DATASET, palette='coolwarm')
+plt.title('Distribution of Restaurants with Online Delivery')
+plt.xlabel('Online Delivery Available')
+plt.ylabel('Number of Restaurants')
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+plt.show()
+```
+
+**Explanation:**
+- The `value_counts(normalize=True)` method calculates the relative frequency of each category.
+- A `countplot` is used to visualize how many restaurants offer Table Booking and Online Delivery.
+
+**2. Compare Average Ratings Based on Table Booking Availability**
+
+```python
+avg_rating_with_table_booking = DATASET[DATASET['Has Table booking'] == 'Yes']['Aggregate rating'].mean()
+avg_rating_without_table_booking = DATASET[DATASET['Has Table booking'] == 'No']['Aggregate rating'].mean()
+
+print("Average rating of restaurants with table booking:", round(avg_rating_with_table_booking, 2))
+print("Average rating of restaurants without table booking:", round(avg_rating_without_table_booking, 2))
+```
+
+**Output:**
+```
+Average rating of restaurants with table booking: 3.44
+Average rating of restaurants without table booking: 2.56
+```
+
+**Plot for Boxplot:**
+
+```python
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Has Table booking', y='Aggregate rating', data=DATASET, palette='muted')
+plt.title('Impact of Table Booking on Aggregate Rating')
+plt.xlabel('Table Booking Available')
+plt.ylabel('Aggregate Rating')
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+plt.show()
+```
+
+**Explanation:**
+- This compares the average ratings for restaurants that offer table booking with those that do not, using a boxplot for better visualization.
+
+**3. Analyze Online Delivery Availability by Price Range**
+
+```python
+DATASET['Price Range Category'] = pd.cut(DATASET['Average Cost for two'], bins=[0, 500, 1000, 1500, 5000], labels=['Low', 'Medium', 'High', 'Very High'])
+online_delivery_by_price = DATASET.groupby('Price Range Category')['Has Online delivery'].value_counts(normalize=True).unstack().fillna(0) * 100
+print("Percentage of restaurants offering online delivery by price range:")
+print(online_delivery_by_price.round(2))
+```
+
+**Output:**
+```
+Percentage of restaurants offering online delivery by price range:
+Has Online delivery      No    Yes
+Price Range Category              
+Low                   82.12  17.88
+Medium                54.91  45.09
+High                  64.81  35.19
+Very High             77.90  22.10
+```
+
+**Plot for Stacked Bar Chart:**
+
+```python
+online_delivery_by_price.plot(kind='bar', stacked=True, figsize=(10, 6), colormap='viridis')
+plt.title('Online Delivery Availability by Price Range')
+plt.xlabel('Price Range Category')
+plt.ylabel('Percentage (%)')
+plt.legend(title='Online Delivery Available')
+plt.show()
+```
+
+**Explanation:**
+- The dataset is categorized into price ranges, and the percentage of restaurants offering online delivery is calculated for each category.
+- A stacked bar chart visualizes the distribution of online delivery services across different price ranges.
+
+---
