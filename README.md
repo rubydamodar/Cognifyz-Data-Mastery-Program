@@ -41,7 +41,6 @@
     └── (Dataset files)
 
 ```
-
 # 🌟 Cognifyz Technologies: Internship Guidelines and Best Practices
 
 ## 🔹 About Cognifyz Technologies
