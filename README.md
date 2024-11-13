@@ -132,3 +132,65 @@ A submission form will be shared at a later date. Until then, continue your task
 - **LEVEL 2**: Includes feature engineering and in-depth analysis of pricing, bookings, and delivery trends.
 - **LEVEL 3**: Advanced predictive modeling and visualization with detailed image outputs and plots.
 - **DATASETS**: Contains all the data used for analysis.
+
+
+### 📊 Level 1 - Data Exploration and Preprocessing
+
+First, we need to load the data using **Pandas** for initial exploration:
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
+import seaborn as sns
+
+# Load the dataset
+file_path = r'Cognifyz-Data-Mastery-Program\DATASETS\Dataset .csv'
+DATASET = pd.read_csv(file_path)
+
+# Display the first few rows to get a sense of the data
+print("Initial preview of the dataset:")
+print(DATASET.head())
+```
+
+**Sample Output:**
+```
+Initial preview of the dataset:
+   Restaurant ID         Restaurant Name  Country Code              City  \
+0        6317637        Le Petit Souffle           162       Makati City   
+1        6304287        Izakaya Kikufuji           162       Makati City   
+2        6300002  Heat - Edsa Shangri-La           162  Mandaluyong City   
+3        6318506                    Ooma           162  Mandaluyong City   
+4        6314302             Sambo Kojin           162  Mandaluyong City   
+
+                                             Address  \
+0  Third Floor, Century City Mall, Kalayaan Avenu...   
+1  Little Tokyo, 2277 Chino Roces Avenue, Legaspi...   
+2  Edsa Shangri-La, 1 Garden Way, Ortigas, Mandal...   
+3  Third Floor, Mega Fashion Hall, SM Megamall, O...   
+4  Third Floor, Mega Atrium, SM Megamall, Ortigas...   
+
+                                     Locality  \
+0   Century City Mall, Poblacion, Makati City   
+1  Little Tokyo, Legaspi Village, Makati City   
+2  Edsa Shangri-La, Ortigas, Mandaluyong City   
+3      SM Megamall, Ortigas, Mandaluyong City   
+4      SM Megamall, Ortigas, Mandaluyong City   
+
+                                    Locality Verbose   Longitude   Latitude  \
+0  Century City Mall, Poblacion, Makati City, Mak...  121.027535  14.565443   
+1  Little Tokyo, Legaspi Village, Makati City, Ma...  121.014101  14.553708   
+2  Edsa Shangri-La, Ortigas, Mandaluyong City, Ma...  121.056831  14.581404   
+3  SM Megamall, Ortigas, Mandaluyong City, Mandal...  121.056475  14.585318   
+4  SM Megamall, Ortigas, Mandaluyong City, Mandal...  121.057508  14.584450   
+
+                           Cuisines  ...          Currency Has Table booking  \
+0        French, Japanese, Desserts  ...  Botswana Pula(P)               Yes   
+1                          Japanese  ...  Botswana Pula(P)               Yes   
+2  Seafood, Asian, Filipino, Indian  ...  Botswana Pula(P)               Yes   
+3                   Japanese, Sushi  ...  Botswana Pula(P)                No   
+4                  Japanese, Korean  ...  Botswana Pula(P)               Yes   
+```
+
+
