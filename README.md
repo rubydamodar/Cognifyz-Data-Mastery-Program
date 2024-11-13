@@ -1276,3 +1276,20 @@ From the analysis, we gain the following insights:
 
 
 This provides an in-depth analysis of cuisine ratings, votes, and how they correlate with each other. By using clustering techniques, we uncover hidden patterns and gain insights into which cuisines are consistently rated highly and which ones are most popular based on votes. The combination of data cleaning, EDA, and clustering makes this analysis a comprehensive exploration of the cuisine ratings dataset.
+
+
+
+
+To include the image from your GitHub repository and create a small-size dashboard for **Vites vs Aggregate Rating** in your README, here's how you can modify it:
+
+---
+
+### 📊 **Vites vs Aggregate Rating Dashboard** 🚀
+
+The following visualization showcases the relationship between the **number of votes (Vites)** and **Aggregate Rating** for each cuisine. It helps us understand how higher ratings correlate with more votes, providing insights into the popularity and consistency of cuisines.
+
+#### **Visualization** 🖼️
+
+You can view the plot below, which visualizes the correlation between `Votes` and `Aggregate Rating` for each cuisine:
+
+![Vites vs Aggregate Rating](https://github.com/rubydamodar/Cognifyz-Data-Mastery-Program/blob/main/LEVEL%203%20TASK%203%20Data%20Visualization/Capture.PNG?raw=true)
