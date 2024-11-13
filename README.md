@@ -41,6 +41,46 @@
     └── (Dataset files)
 
 ```
+```mermaid
+graph TB
+    A[📦 Data Science Internship Project] --> B1[📁 LEVEL 1 - Data Exploration and Preprocessing]
+    A --> B2[📁 LEVEL 2 - Advanced Analysis]
+    A --> B3[📁 LEVEL 3 - Modeling and Visualization]
+    A --> C[📁 DATASETS]
+    A --> D[📄 LICENSE]
+    A --> E[📄 README.md]
+
+    B1 --> B1A[📄 DATAEXPLORATION AND PREPROCESSING.ipynb]
+    B1 --> B1B[📄 DESCRIPTIVE ANALYSIS.ipynb]
+    B1 --> B1C[📄 GEOSPATIAL ANALYSIS.ipynb]
+    B1 --> B1D[🌐 restaurant_map.html]
+
+    B2 --> B2A[📄 TABLE BOOKING AND ONLINE DELIVERY.ipynb]
+    B2 --> B2B[📄 PRICE RANGE ANALYSIS.ipynb]
+    B2 --> B2C[📄 FEATURE ENGINEERING.ipynb]
+
+    B3 --> B3A[📄 PREDICTIVE MODELING.ipynb]
+    B3 --> B3B[📄 CUSTOMER PREFERENCE ANALYSIS.ipynb]
+    B3 --> B3C[📄 Data Visualization.ipynb]
+    B3 --> B3D[📊 average_rating_by_cuisine.png]
+    B3 --> B3E[📊 boxplot_ratings_by_cuisine.png]
+    B3 --> B3F[📊 correlation_heatmap.png]
+    B3 --> B3G[📊 jointplot_votes_rating.png]
+    B3 --> B3H[📊 pair_plot.png]
+    B3 --> B3I[📊 pairplot_votes_rating.png]
+    B3 --> B3J[📊 rating_distribution_boxplot.png]
+    B3 --> B3K[📊 rating_distribution_histogram.png]
+    B3 --> B3L[📊 swarmplot_ratings_cuisines.png]
+    B3 --> B3M[📊 top_cuisines_avg_rating.png]
+    B3 --> B3N[📊 violinplot_votes_by_rating.png]
+    B3 --> B3O[📊 votes_vs_aggregate_rating.png]
+    B3 --> B3P[🌐 bubble_chart_votes_rating.html]
+
+    C --> C1[(Dataset files)]
+```
+
+
+
 # 🌟 Cognifyz Technologies: Internship Guidelines and Best Practices
 
 ## 🔹 About Cognifyz Technologies
