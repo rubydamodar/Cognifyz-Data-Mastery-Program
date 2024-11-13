@@ -436,3 +436,135 @@ This **Geospatial Restaurant Analysis** gives you the tools to visualize and ana
 - **Outliers**: Discovering restaurants in less populated areas, which could point to underserved markets.
 
 Geospatial analysis provides powerful insights into the spatial distribution of restaurants and can aid in making data-driven decisions for expanding or optimizing restaurant locations. 🌟
+
+
+# 💸 **Price Range Analysis for Restaurants** 🍴
+
+Welcome to the **Price Range Analysis for Restaurants** project! In this analysis, we will explore the relationship between **price range categories**, **average ratings**, and the **most common rating color** for different price ranges in the dataset. We'll help you uncover insights like which price ranges have the highest ratings and identify the color that represents the best ratings for each price range. 🎨
+
+## 📚 Libraries Used
+
+- **Pandas** 🐼: For data processing and manipulation.
+- **Matplotlib** 📊: For plotting bar charts to visualize results.
+- **Seaborn** 🎨: For creating beautiful and informative bar charts.
+- **Warnings** ⚠️: To suppress unnecessary warnings during analysis.
+
+---
+
+## 🗂️ Dataset Overview
+
+The dataset includes important columns for this analysis:
+
+- **Average Cost for Two** 💸: The average cost of dining for two people.
+- **Aggregate Rating** ⭐: The average rating of the restaurant.
+- **Rating Color** 🌈: The color associated with the restaurant's rating.
+
+---
+
+## 🔢 **Price Range Categories**
+
+We categorize restaurants into different **price ranges** based on the average cost for two people:
+
+- **Low** 💰: Cost between ₹0 and ₹500
+- **Medium** 💵: Cost between ₹501 and ₹1000
+- **High** 💳: Cost between ₹1001 and ₹1500
+- **Very High** 💎: Cost above ₹1500
+
+### Create Price Range Categories:
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
+import seaborn as sns
+
+# Load dataset
+file_path = r'path_to_your_dataset.csv'
+DATASET = pd.read_csv(file_path)
+
+# Create price range categories
+DATASET['Price Range Category'] = pd.cut(DATASET['Average Cost for two'], bins=[0, 500, 1000, 1500, 5000], labels=['Low', 'Medium', 'High', 'Very High'])
+```
+
+### 📊 **Most Common Price Range**
+
+We calculate the most common price range based on the number of restaurants in each category:
+
+```python
+most_common_price_range = DATASET['Price Range Category'].value_counts()
+print("Most common price range:")
+print(most_common_price_range)
+
+# Plot the distribution of price ranges
+plt.figure(figsize=(10, 5))
+sns.barplot(x=most_common_price_range.index, y=most_common_price_range.values, palette='Set2')
+plt.title('Most Common Price Range')
+plt.xlabel('Price Range Category')
+plt.ylabel('Number of Restaurants')
+plt.show()
+```
+
+### Insights:
+- **Low Price Range** 💰: Most common range, with 6056 restaurants.
+- **Very High Price Range** 💎: Least common, with only 552 restaurants.
+
+---
+
+## ⭐ **Average Rating for Each Price Range**
+
+Now we calculate the **average rating** for each price range category to understand how ratings vary across price ranges:
+
+```python
+avg_rating_per_price_range = DATASET.groupby('Price Range Category')['Aggregate rating'].mean().round(2)
+print("Average rating for each price range:")
+print(avg_rating_per_price_range)
+
+# Plot the average rating for each price range
+plt.figure(figsize=(10, 5))
+sns.barplot(x=avg_rating_per_price_range.index, y=avg_rating_per_price_range.values, palette='Blues')
+plt.title('Average Rating for Each Price Range')
+plt.xlabel('Price Range Category')
+plt.ylabel('Average Rating')
+plt.ylim(0, 5)  # Set y-axis limit for ratings
+plt.show()
+```
+
+### Insights:
+- **Low Price Range** 💰: Average rating of 2.32.
+- **Very High Price Range** 💎: Highest average rating of 3.67.
+
+---
+
+## 🌈 **Color Representing the Highest Average Rating**
+
+Next, we identify the **color** representing the highest average rating for each price range:
+
+```python
+highest_avg_color_per_price_range = DATASET.groupby('Price Range Category')['Rating color'].agg(lambda x: x.value_counts().idxmax())
+print("Color representing the highest average rating for each price range:")
+print(highest_avg_color_per_price_range)
+
+# Plot the color associated with the highest average rating
+plt.figure(figsize=(10, 5))
+sns.barplot(x=highest_avg_color_per_price_range.index, y=avg_rating_per_price_range.values, palette=highest_avg_color_per_price_range.values)
+plt.title('Color Representing Highest Average Rating by Price Range')
+plt.xlabel('Price Range Category')
+plt.ylabel('Average Rating')
+plt.show()
+```
+
+### Insights:
+- **Low Price Range** 💰: Orange 🌟 color represents the highest rating.
+- **Medium Price Range** 💵: Orange 🌟 color again represents the highest rating.
+- **Very High Price Range** 💎: Yellow 🌟 color is associated with the highest ratings.
+
+---
+
+Through this **Price Range Analysis** for restaurants, we have learned the following key insights:
+
+1. **Most Common Price Range**: Restaurants in the **Low Price Range** 💰 are the most common.
+2. **Average Ratings**: **Very High Price Range** 💎 restaurants tend to have the highest average ratings.
+3. **Color Insights**: The color **Orange** 🌟 represents the highest average ratings for **Low** and **Medium** price ranges, while **Yellow** 🌟 is most common for **Very High** price ranges.
+
+This analysis can help us understand how price influences customer ratings and how restaurants are perceived across different price ranges. 🎯
