@@ -41,14 +41,15 @@
     └── (Dataset files)
 
 ```
+
 ```mermaid
-graph TB
-    A[📦 Data Science Internship Project] --> B1[📁 LEVEL 1 - Data Exploration and Preprocessing]
+graph LR
+    A[📦 Data Science Internship Project] --> D[📄 LICENSE]
+    A --> E[📄 README.md]
+    A --> B1[📁 LEVEL 1 - Data Exploration and Preprocessing]
     A --> B2[📁 LEVEL 2 - Advanced Analysis]
     A --> B3[📁 LEVEL 3 - Modeling and Visualization]
     A --> C[📁 DATASETS]
-    A --> D[📄 LICENSE]
-    A --> E[📄 README.md]
 
     B1 --> B1A[📄 DATAEXPLORATION AND PREPROCESSING.ipynb]
     B1 --> B1B[📄 DESCRIPTIVE ANALYSIS.ipynb]
