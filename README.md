@@ -848,7 +848,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import seaborn as sns
 
-file_path = r'C:\Users\abhis\Documents\GitHub\walmart sales forecasting\Cognifyz-Data-Mastery-Program\DATASETS\Dataset .csv'
+file_path = r'Cognifyz-Data-Mastery-Program\DATASETS\Dataset .csv'
 DATASET = pd.read_csv(file_path)
 ```
 
