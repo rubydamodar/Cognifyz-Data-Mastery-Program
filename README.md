@@ -834,6 +834,257 @@ plt.show()
 - The encoded features reveal the proportion of restaurants offering table booking and online delivery services. 📅📦
 
 
+
+### 1. **Data Preparation** 📊
+
+- **Loading the Dataset**: First, we load the dataset using pandas.
+  
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+import warnings
+warnings.filterwarnings('ignore')
+import seaborn as sns
+
+file_path = r'C:\Users\abhis\Documents\GitHub\walmart sales forecasting\Cognifyz-Data-Mastery-Program\DATASETS\Dataset .csv'
+DATASET = pd.read_csv(file_path)
+```
+
+- **Drop Irrelevant Columns**: Drop columns that aren't useful for prediction, like `Restaurant Name`, `Address`, `Locality`, `Longitude`, and `Latitude`.
+
+```python
+# Drop irrelevant columns
+data = DATASET.drop(columns=['Restaurant Name', 'Address', 'Locality', 'Longitude', 'Latitude'])
+```
+
+- **Label Encoding**: For categorical columns such as `Price Range Category`, we use Label Encoding to convert them into numeric values.
+
+```python
+label_encoder = LabelEncoder()
+data['Price Range Category'] = label_encoder.fit_transform(data['Price Range Category'])
+```
+
+- **Selecting Relevant Features**: We now select the features (X) and target variable (y) for the model.
+
+```python
+# Select features (X) and target (y)
+X = DATASET[['Price Range Category', 'Average Cost for two', 'Has Table booking', 'Has Online delivery', 'Votes']]
+y = DATASET['Aggregate rating']
+```
+
+- **Train-Test Split**: Split the data into training and testing sets (80% training, 20% testing).
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+---
+
+### 2. **Model Building** 🤖
+
+We will experiment with the following three models:
+
+- **Linear Regression**  
+- **Decision Tree Regressor**  
+- **Random Forest Regressor**
+
+#### **Linear Regression Model**:
+```python
+from sklearn.linear_model import LinearRegression
+
+# Instantiate and train the Linear Regression model
+lr_model = LinearRegression()
+lr_model.fit(X_train, y_train)
+
+# Predict on the test set
+lr_pred = lr_model.predict(X_test)
+```
+
+#### **Decision Tree Regressor**:
+```python
+from sklearn.tree import DecisionTreeRegressor
+
+# Instantiate and train the Decision Tree model
+dt_model = DecisionTreeRegressor(random_state=42)
+dt_model.fit(X_train, y_train)
+
+# Predict on the test set
+dt_pred = dt_model.predict(X_test)
+```
+
+#### **Random Forest Regressor**:
+```python
+from sklearn.ensemble import RandomForestRegressor
+
+# Instantiate and train the Random Forest model
+rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
+rf_model.fit(X_train, y_train)
+
+# Predict on the test set
+rf_pred = rf_model.predict(X_test)
+```
+
+---
+
+### 3. **Model Evaluation** 📈
+
+We will evaluate each model using the following metrics:
+
+- **R-Squared**: Measures how well the model explains the variance in the target variable. (Higher is better)
+- **Mean Squared Error (MSE)**: Measures the average squared difference between predicted and actual values. (Lower is better)
+
+```python
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Linear Regression evaluation
+lr_r2 = r2_score(y_test, lr_pred)
+lr_mse = mean_squared_error(y_test, lr_pred)
+
+# Decision Tree evaluation
+dt_r2 = r2_score(y_test, dt_pred)
+dt_mse = mean_squared_error(y_test, dt_pred)
+
+# Random Forest evaluation
+rf_r2 = r2_score(y_test, rf_pred)
+rf_mse = mean_squared_error(y_test, rf_pred)
+
+# Print the results
+print("Linear Regression - R2:", lr_r2, "MSE:", lr_mse)
+print("Decision Tree - R2:", dt_r2, "MSE:", dt_mse)
+print("Random Forest - R2:", rf_r2, "MSE:", rf_mse)
+```
+
+The results will likely show that Random Forest performs better due to its ability to handle non-linearity and interactions in the data.
+
+---
+
+### 4. **Compare the Models** 🤔
+
+Compare the performance of the models based on **R-squared** and **MSE**:
+
+- **R-squared**: The closer it is to 1, the better the model fits the data.
+- **MSE**: The smaller it is, the more accurate the model.
+
+You will typically see that Random Forest will have the highest R-squared and the lowest MSE.
+
+---
+
+### 5. **Feature Importance (Random Forest)** 🔑
+
+Random Forest allows us to visualize which features are contributing the most to predicting the target variable (`Aggregate rating`).
+
+```python
+importances = rf_model.feature_importances_
+sorted_idx = importances.argsort()
+
+# Plot feature importance
+plt.figure(figsize=(10, 6))
+plt.barh(X.columns[sorted_idx], importances[sorted_idx])
+plt.title("Feature Importance (Random Forest)")
+plt.xlabel("Feature Importance")
+plt.show()
+```
+
+This plot will give you an idea of which features have the most significant impact on predicting restaurant ratings.
+
+---
+
+### 6. **Hyperparameter Tuning for Decision Tree and Random Forest** 🛠️
+
+We can use **GridSearchCV** to find the best hyperparameters for the models. Here's an example for Random Forest:
+
+```python
+from sklearn.model_selection import GridSearchCV
+
+# Define the hyperparameter grid for Random Forest
+param_grid_rf = {
+    'n_estimators': [50, 100, 200],
+    'max_depth': [None, 10, 20, 30],
+    'min_samples_split': [2, 5, 10],
+    'max_features': ['auto', 'sqrt', 'log2']
+}
+
+# Initialize GridSearchCV
+grid_search_rf = GridSearchCV(estimator=rf_model, param_grid=param_grid_rf, cv=5, scoring='neg_mean_squared_error', n_jobs=-1, verbose=2)
+
+# Fit the model
+grid_search_rf.fit(X_train, y_train)
+
+# Get the best hyperparameters
+print("Best hyperparameters for Random Forest:", grid_search_rf.best_params_)
+```
+
+Once we find the best hyperparameters, we use the tuned model to predict:
+
+```python
+# Use the best model to predict
+best_rf_model = grid_search_rf.best_estimator_
+rf_pred_tuned = best_rf_model.predict(X_test)
+
+# Evaluate the tuned Random Forest model
+rf_r2_tuned = r2_score(y_test, rf_pred_tuned)
+rf_mse_tuned = mean_squared_error(y_test, rf_pred_tuned)
+
+print("Tuned Random Forest - R2:", rf_r2_tuned, "MSE:", rf_mse_tuned)
+```
+
+---
+
+### 7. **Model Residual Analysis** 🔍
+
+Residual analysis helps check the model’s performance and if it's underfitting or overfitting.
+
+```python
+# Calculate residuals for the Random Forest model (or any other model)
+residuals_rf = y_test - rf_pred_tuned
+
+# Plot residuals
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, residuals_rf, color='blue', edgecolor='k', alpha=0.7)
+plt.axhline(y=0, color='red', linestyle='--')
+plt.title('Residuals vs Actual Values (Random Forest)')
+plt.xlabel('Actual Aggregate Rating')
+plt.ylabel('Residuals')
+plt.show()
+
+# Histogram of residuals
+plt.figure(figsize=(10, 6))
+plt.hist(residuals_rf, bins=20, color='green', edgecolor='black', alpha=0.7)
+plt.title('Distribution of Residuals (Random Forest)')
+plt.xlabel('Residuals')
+plt.ylabel('Frequency')
+plt.show()
+```
+
+---
+
+### 8. **Model Interpretability (SHAP or LIME)** 🌟
+
+If you want to understand how the model makes predictions, you can use **SHAP** or **LIME** for interpretability.
+
+Here's how to use **SHAP** for the Random Forest model:
+
+```python
+import shap
+
+# Create the SHAP explainer
+explainer = shap.TreeExplainer(best_rf_model)
+
+# Calculate SHAP values for the test set
+shap_values = explainer.shap_values(X_test)
+
+# Plot summary of SHAP values
+shap.summary_plot(shap_values, X_test)
+```
+
+This summary plot will show you how much each feature contributes to each individual prediction.
+
+
+By the end of this process, you will have built, evaluated, and tuned three regression models: **Linear Regression**, **Decision Tree**, and **Random Forest**. Random Forest is likely to be the best-performing model due to its ability to handle complex relationships in the data. You will also have visualized feature importance, performed residual analysis, and used SHAP for model interpretability.
+
+
 Feature engineering has provided us with insightful new features and encoded variables that can be used in predictive models. These transformations help capture meaningful patterns and relationships, making the data more suitable for machine learning algorithms. 💻
 
 By understanding and applying these techniques, you can significantly improve the performance of your models and gain deeper insights into the data. 🚀
