@@ -316,4 +316,123 @@ Similarly, we explore which cities have the highest number of restaurants:
 print("Top 10 cities with the highest number of restaurants:")
 print(DATASET['City'].value_counts().head(10))
 ```
+# 🌍 Geospatial Restaurant Analysis
 
+Welcome to the **Geospatial Restaurant Analysis** project! 🍽️ This project focuses on analyzing the geographical distribution of restaurants based on their **latitude** and **longitude** data, exploring patterns and concentrations of restaurant locations across different cities. 🌆
+
+## 📚 Libraries Used
+
+- **Folium** 🗺️: For creating interactive maps to visualize restaurant locations.
+- **Pandas** 🐼: For data manipulation and processing.
+- **Matplotlib** 📊: For plotting static graphs to visualize restaurant distributions.
+- **Seaborn** 🎨: For enhanced visualizations and creating scatter plots.
+- **Scikit-learn** 🤖: For applying machine learning algorithms like KMeans clustering to group restaurant locations.
+
+## 🗂️ Dataset Overview
+
+The dataset contains the following columns relevant for geospatial analysis:
+
+- **Latitude** 📍: The latitude of the restaurant’s location.
+- **Longitude** 🌍: The longitude of the restaurant’s location.
+- **Restaurant Name** 🍴: The name of the restaurant.
+- **City** 🏙️: The city in which the restaurant is located.
+
+## 📍 Interactive Map of Restaurant Locations
+
+The first step is to visualize restaurant locations on an interactive map, centered on the average latitude and longitude of all restaurants. The map includes markers for each restaurant, which can be clicked for more details.
+
+```python
+import folium
+import pandas as pd
+import warnings
+warnings.filterwarnings('ignore')
+
+# Load dataset
+file_path = r'path_to_your_dataset.csv'
+DATASET = pd.read_csv(file_path)
+
+# Calculate average latitude and longitude
+avg_lat = DATASET['Latitude'].mean()
+avg_lon = DATASET['Longitude'].mean()
+map_restaurants = folium.Map(location=[avg_lat, avg_lon], zoom_start=12)
+
+# Add markers for each restaurant
+for _, row in DATASET.iterrows():
+    folium.Marker(
+        location=[row['Latitude'], row['Longitude']],
+        popup=f"{row['Restaurant Name']} - {row['City']}",
+        icon=folium.Icon(color='blue', icon='cutlery', prefix='fa')
+    ).add_to(map_restaurants)
+
+# Save map to HTML
+map_restaurants.save("restaurant_map.html")
+```
+
+📍 **Result**: The map has been saved as **'restaurant_map.html'**. You can open this file in any browser to view an interactive map of restaurant locations.
+
+---
+
+## 🌐 Distribution Analysis Using Seaborn
+
+We can also visualize the geographical distribution of restaurants on a static map. Using **Seaborn**, we plot the density of restaurants, colored by their city:
+
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(12, 8))
+sns.scatterplot(x='Longitude', y='Latitude', data=DATASET, hue='City', palette='Set1', legend=False)
+plt.title('Geospatial Distribution of Restaurants')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.grid(True)
+plt.show()
+```
+
+### 🔍 Insights:
+- **Scatter Plot**: Displays restaurant locations with colors representing different cities.
+- **Grid & Labels**: Helps understand the geographical spread and clusters of restaurants.
+
+---
+
+## 🔎 Geospatial Clustering (Advanced)
+
+To identify high-density restaurant areas, we apply **KMeans clustering** using **Scikit-learn** to group restaurant locations. This can help uncover hot spots or regions with a high concentration of restaurants.
+
+### KMeans Clustering Code:
+```python
+from sklearn.cluster import KMeans
+import numpy as np
+
+# Extract coordinates for clustering
+coordinates = DATASET[['Latitude', 'Longitude']].dropna()
+
+# Perform KMeans clustering
+kmeans = KMeans(n_clusters=5)  # Adjust the number of clusters as needed
+kmeans.fit(coordinates)
+
+# Assign cluster labels to dataset
+DATASET['Cluster'] = kmeans.predict(DATASET[['Latitude', 'Longitude']])
+
+# Plot the clustered data
+plt.figure(figsize=(12, 8))
+sns.scatterplot(x='Longitude', y='Latitude', hue='Cluster', data=DATASET, palette='viridis')
+plt.title('Geospatial Clustering of Restaurants')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+```
+
+### 🔑 Key Concepts:
+- **KMeans Clustering**: Groups restaurant locations into clusters to identify regions with higher restaurant density.
+- **Visualization**: Different colors represent different clusters of restaurant concentrations.
+- **High-density Areas**: Clusters help reveal popular dining districts and potential new restaurant zones.
+
+---
+This **Geospatial Restaurant Analysis** gives you the tools to visualize and analyze the distribution and clustering of restaurants based on geographical data. Using **Folium** for interactive maps, **Seaborn** for static density plots, and **KMeans** clustering for grouping similar locations, we uncover important patterns:
+
+- **Restaurant Concentration**: Where are the most popular restaurant zones?
+- **Clustering**: Identifying potential high-density areas for business opportunities.
+- **Outliers**: Discovering restaurants in less populated areas, which could point to underserved markets.
+
+Geospatial analysis provides powerful insights into the spatial distribution of restaurants and can aid in making data-driven decisions for expanding or optimizing restaurant locations. 🌟
