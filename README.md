@@ -134,7 +134,7 @@ A submission form will be shared at a later date. Until then, continue your task
 - **DATASETS**: Contains all the data used for analysis.
 
 
-### 📊 Level 1 - Data Exploration and Preprocessing
+### 📊 Data Exploration and Preprocessing
 
 First, we need to load the data using **Pandas** for initial exploration:
 
@@ -194,3 +194,129 @@ Initial preview of the dataset:
 ```
 
 
+
+# 🍽️ Restaurant Dataset Analysis & Visualization
+
+Welcome to the **Restaurant Dataset Analysis** project! 🎉 This project dives deep into a dataset containing various restaurant details. The goal is to explore, analyze, and visualize essential insights that can guide restaurant-related decisions and trends. 🍴📊
+
+## 📚 Libraries Used
+
+- **Pandas** 🐼: For data manipulation and analysis.
+- **Matplotlib** 📈: For creating beautiful visualizations.
+- **Seaborn** 🎨: For advanced and attractive plots.
+- **Warnings** ⚠️: To suppress unnecessary warnings during execution.
+
+## 🗂️ Dataset Overview
+
+The dataset includes valuable information about restaurants such as:
+
+- **Restaurant ID**: Unique identifier for each restaurant. 🆔
+- **Country Code**: The code representing the country of the restaurant. 🌍
+- **Longitude & Latitude**: Geographical coordinates. 🌐
+- **Average Cost for Two**: The typical cost for a meal for two people. 💸
+- **Price Range**: Price category of the restaurant. 💰
+- **Aggregate Rating**: The overall rating from customers. ⭐
+- **Votes**: The total number of votes the restaurant has received. 🗳️
+
+## 📊 Basic Statistical Measures
+
+First, we use the `describe()` method to get an overview of numerical columns, providing insights like mean, standard deviation, minimum, and maximum values.
+
+```python
+print("Basic statistical measures for numerical columns:")
+print(DATASET.describe())
+```
+
+### Sample Output:
+```plaintext
+       Restaurant ID  Country Code    Longitude     Latitude  Average Cost for two  Price range  Aggregate Rating  Votes  
+count   9,551          9,551           9,551         9,551          9,551              9,551          9,551         9,551  
+mean    9,051,128      18.37           64.13         25.85          1,199              1.80           2.67         156.91  
+std     8,791,521      56.75           41.47         11.00          16,121             0.91           1.52         430.17  
+min     53             1.00            -157.95       -41.33         0                  1.00           0.00         0  
+25%     301,962        1.00            77.08         28.48         250                1.00           2.50         5  
+50%     6,004,089      1.00            77.19         28.57         400                2.00           3.20         31  
+75%     18,352,290     1.00            77.28         28.64         700                2.00           3.70         131  
+max     18,500,650     216.00           174.83        55.98         800,000            4.00           4.90         10,934
+```
+
+## 🎨 Distribution of Categorical Variables
+
+We explore the distribution of key categorical columns such as **Country Code**, **City**, and **Cuisines**. We use `value_counts()` to uncover the most frequent categories.
+
+```python
+categorical_columns = ['Country Code', 'City', 'Cuisines']
+for column in categorical_columns:
+    print(f"\nDistribution of {column}:")
+    print(DATASET[column].value_counts().head(10))
+```
+
+### Sample Output:
+```plaintext
+Distribution of Country Code:
+Country Code
+1      8,652
+216    434
+215    80
+...
+
+Distribution of City:
+City
+New Delhi      5,473
+Gurgaon        1,118
+Noida          1,080
+...
+
+Distribution of Cuisines:
+Cuisines
+North Indian                      936
+North Indian, Chinese             511
+Chinese                           354
+...
+```
+
+### Visualizing Categorical Data 📊
+
+We use Seaborn’s `countplot()` to visualize the distribution of categorical variables like **City** and **Cuisines**.
+
+#### Top 10 Cuisines 🍝
+```python
+plt.figure(figsize=(10, 6))
+sns.countplot(y='Cuisines', data=DATASET, order=DATASET['Cuisines'].value_counts().index[:10], palette='coolwarm')
+plt.title("Top 10 Cuisines by Number of Restaurants")
+plt.xlabel("Count")
+plt.ylabel("Cuisines")
+plt.show()
+```
+
+#### Top 10 Cities 🏙️
+```python
+plt.figure(figsize=(10, 6))
+sns.countplot(y='City', data=DATASET, order=DATASET['City'].value_counts().index[:10], palette='magma')
+plt.title("Top 10 Cities by Number of Restaurants")
+plt.xlabel("Count")
+plt.ylabel("City")
+plt.show()
+```
+
+## 🥇 Top Cuisines and Cities with the Highest Number of Restaurants
+
+### Most Common Cuisines 🍲
+We find the top cuisines by the number of restaurants offering them:
+
+```python
+print("Top 10 most common cuisines:")
+print(DATASET['Cuisines'].value_counts().head(10))
+```
+
+### Most Common Cities 🌆
+Similarly, we explore which cities have the highest number of restaurants:
+
+```python
+print("Top 10 cities with the highest number of restaurants:")
+print(DATASET['City'].value_counts().head(10))
+```
+
+## 💡 Conclusion
+
+This project provides insights into the **restaurant industry** by examining numerical and categorical data. From understanding basic statistics to identifying the most popular cuisines and cities, the analysis highlights trends that are crucial for stakeholders in the restaurant business. By visualizing these insights, the project offers a clear and engaging overview of restaurant data. 🌟
