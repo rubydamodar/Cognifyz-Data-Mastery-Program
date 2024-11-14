@@ -2,6 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/c2b2da51-f1d1-4d22-b3d9-c9d47b3110e7)
 
+
 ```
 📦 Data Science Internship Project
 │
